@@ -3,6 +3,8 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
+# no/yes  + docker-compose setup
+importall=yes
 
 ###########################################
 # OpenMapTiles quickstart.sh for x86_64 linux
@@ -22,7 +24,7 @@ set -o nounset
 #
 
 if [ $# -eq 0 ]; then
-    osm_area=albania                         #  default test country
+    osm_area=my                         #  default test country
     echo "No parameter - set area=$osm_area "
 else
     osm_area=$1
@@ -196,7 +198,7 @@ echo "====> : Start importing water data from http://openstreetmapdata.com into 
 echo "      : Source code:  https://github.com/openmaptiles/import-water "
 echo "      : Data license: http://openstreetmapdata.com/info/license  "
 echo "      : Thank you: http://openstreetmapdata.com/info/supporting "
-docker-compose run --rm import-water
+[[ $importall = "yes" ]] && docker-compose run --rm import-water
 
 echo " "
 echo "-------------------------------------------------------------------------------------"
@@ -204,7 +206,7 @@ echo "====> : Start importing border data from http://openstreetmap.org into Pos
 echo "      : Source code:  https://github.com/openmaptiles/import-osmborder"
 echo "      : Data license: http://www.openstreetmap.org/copyright"
 echo "      : Thank you: https://github.com/pnorman/osmborder "
-docker-compose run --rm import-osmborder
+[[ $importall = "yes" ]] && docker-compose run --rm import-osmborder
 
 echo " "
 echo "-------------------------------------------------------------------------------------"
@@ -212,7 +214,7 @@ echo "====> : Start importing  http://www.naturalearthdata.com  into PostgreSQL 
 echo "      : Source code: https://github.com/openmaptiles/import-natural-earth "
 echo "      : Terms-of-use: http://www.naturalearthdata.com/about/terms-of-use  "
 echo "      : Thank you: Natural Earth Contributors! "
-docker-compose run --rm import-natural-earth
+[[ $importall = "yes" ]] && docker-compose run --rm import-natural-earth
 
 echo " "
 echo "-------------------------------------------------------------------------------------"
@@ -220,7 +222,7 @@ echo "====> : Start importing OpenStreetMap Lakelines data "
 echo "      : Source code: https://github.com/openmaptiles/import-lakelines "
 echo "      :              https://github.com/lukasmartinelli/osm-lakelines "
 echo "      : Data license: .. "
-docker-compose run --rm import-lakelines
+[[ $importall = "yes" ]] && docker-compose run --rm import-lakelines
 
 echo " "
 echo "-------------------------------------------------------------------------------------"
@@ -238,7 +240,7 @@ echo "====> : Start importing Wikidata: ./wikidata/latest-all.json.gz -> Postgre
 echo "      : Source code: https://github.com/openmaptiles/import-wikidata "
 echo "      : The Wikidata license: https://www.wikidata.org/wiki/Wikidata:Database_download/en#License "
 echo "      : Thank you Wikidata Contributors ! "
-docker-compose run --rm import-wikidata
+[[ $importall = "yes" ]] && docker-compose run --rm import-wikidata
 
 echo " "
 echo "-------------------------------------------------------------------------------------"
