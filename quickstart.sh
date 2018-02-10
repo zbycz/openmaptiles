@@ -232,6 +232,12 @@ echo "      :   Thank you Omniscale! "
 echo "      :   Source code: https://github.com/openmaptiles/import-osm "
 echo "      : The OpenstreetMap data license: https://www.openstreetmap.org/copyright (ODBL) "
 echo "      : Thank you OpenStreetMap Contributors ! "
+
+mv build/mapping.yaml .
+echo "tags:\n  load_all: true" > build/mapping.yaml
+cat mapping.yaml >> build/mapping.yaml
+rm mapping.yaml
+
 docker-compose run --rm import-osm
 
 echo " "
@@ -271,7 +277,7 @@ echo "      :  "
 echo "      : You will see a lot of deprecated warning in the log! This is normal!  "
 echo "      :    like :  Mapnik LOG>  ... is deprecated and will be removed in Mapnik 4.x ... "
 
-docker-compose -f docker-compose.yml -f ./data/docker-compose-config.yml  run --rm generate-vectortiles
+docker-compose -f docker-compose.yml run --rm generate-vectortiles
 
 echo " "
 echo "-------------------------------------------------------------------------------------"
@@ -282,7 +288,7 @@ docker-compose run --rm openmaptiles-tools  chmod 666         ./data/tiles.mbtil
 echo " "
 echo "-------------------------------------------------------------------------------------"
 echo "====> : Stop PostgreSQL service ( but we keep PostgreSQL data volume for debugging )"
-docker-compose stop postgres
+echo //docker-compose stop postgres
 
 echo " "
 echo "-------------------------------------------------------------------------------------"
