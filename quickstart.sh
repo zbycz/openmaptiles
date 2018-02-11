@@ -234,7 +234,7 @@ echo "      : The OpenstreetMap data license: https://www.openstreetmap.org/copy
 echo "      : Thank you OpenStreetMap Contributors ! "
 
 mv build/mapping.yaml .
-echo "tags:\n  load_all: true" > build/mapping.yaml
+echo "tags: {load_all: true}" > build/mapping.yaml
 cat mapping.yaml >> build/mapping.yaml
 rm mapping.yaml
 
