@@ -13,6 +13,13 @@ services:
      - "5432:5432"
     env_file: .env
 
+  pp:
+    image: "busybox"
+    volumes:
+    - pgdata:/var/lib/postgresql/data
+    - ./:/backup
+    #docker-compose run pp tar xvf /backup/backup.tar -C /var/lib/postgresql/data/
+
   import-natural-earth:
     image: "openmaptiles/import-natural-earth:1.4"
     env_file: .env

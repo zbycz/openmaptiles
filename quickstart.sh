@@ -183,7 +183,7 @@ echo "--------------------------------------------------------------------------
 echo "====> : Start PostgreSQL service ; create PostgreSQL data volume "
 echo "      : Source code: https://github.com/openmaptiles/postgis "
 echo "      : Thank you: https://www.postgresql.org !  Thank you http://postgis.org !"
-docker-compose up   -d postgres
+docker-compose up -d postgres
 
 echo " "
 echo "-------------------------------------------------------------------------------------"
