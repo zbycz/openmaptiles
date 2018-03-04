@@ -79,7 +79,7 @@ Layer:
     password: openmaptiles
     port: 5432
     srid: 900913
-    table: (SELECT geometry, class, subclass FROM layer_landcover(!bbox!, z(!scale_denominator!)))
+    table: (SELECT osm_id, geometry, class, subclass FROM layer_landcover(!bbox!, z(!scale_denominator!)))
       AS t
     type: postgis
     user: openmaptiles
@@ -98,7 +98,7 @@ Layer:
     password: openmaptiles
     port: 5432
     srid: 900913
-    table: (SELECT geometry, class FROM layer_landuse(!bbox!, z(!scale_denominator!)))
+    table: (SELECT osm_id, geometry, class FROM layer_landuse(!bbox!, z(!scale_denominator!)))
       AS t
     type: postgis
     user: openmaptiles
@@ -167,7 +167,7 @@ Layer:
     password: openmaptiles
     port: 5432
     srid: 900913
-    table: (SELECT geometry, class FROM layer_park(!bbox!, z(!scale_denominator!)))
+    table: (SELECT osm_id, geometry, class FROM layer_park(!bbox!, z(!scale_denominator!)))
       AS t
     type: postgis
     user: openmaptiles
@@ -224,7 +224,7 @@ Layer:
     password: openmaptiles
     port: 5432
     srid: 900913
-    table: (SELECT geometry, class, subclass, oneway, ramp, brunnel, service, layer,
+    table: (SELECT osm_id, geometry, class, subclass, oneway, ramp, brunnel, service, layer,
       level, indoor FROM layer_transportation(!bbox!, z(!scale_denominator!))) AS
       t
     type: postgis
@@ -244,7 +244,7 @@ Layer:
     password: openmaptiles
     port: 5432
     srid: 900913
-    table: (SELECT geometry, render_height, render_min_height FROM layer_building(!bbox!,
+    table: (SELECT osm_id, geometry, render_height, render_min_height FROM layer_building(!bbox!,
       z(!scale_denominator!))) AS t
     type: postgis
     user: openmaptiles
@@ -313,7 +313,7 @@ Layer:
     password: openmaptiles
     port: 5432
     srid: 900913
-    table: (SELECT geometry, name, name_en, name_de, NULLIF(tags->'name:ar', '') AS
+    table: (SELECT osm_id, geometry, name, name_en, name_de, NULLIF(tags->'name:ar', '') AS
       "name:ar", NULLIF(tags->'name:az', '') AS "name:az", NULLIF(tags->'name:be',
       '') AS "name:be", NULLIF(tags->'name:bg', '') AS "name:bg", NULLIF(tags->'name:br',
       '') AS "name:br", NULLIF(tags->'name:bs', '') AS "name:bs", NULLIF(tags->'name:ca',
@@ -414,7 +414,7 @@ Layer:
     password: openmaptiles
     port: 5432
     srid: 900913
-    table: (SELECT geometry, housenumber FROM layer_housenumber(!bbox!, z(!scale_denominator!)))
+    table: (SELECT osm_id, geometry, housenumber FROM layer_housenumber(!bbox!, z(!scale_denominator!)))
       AS t
     type: postgis
     user: openmaptiles
@@ -433,7 +433,7 @@ Layer:
     password: openmaptiles
     port: 5432
     srid: 900913
-    table: (SELECT osm_id, geometry, name, name_en, name_de, NULLIF(tags->'name:ar',
+    table: (SELECT osm_id, to_json(tags) AS tags, osm_id, geometry, name, name_en, name_de, NULLIF(tags->'name:ar',
       '') AS "name:ar", NULLIF(tags->'name:az', '') AS "name:az", NULLIF(tags->'name:be',
       '') AS "name:be", NULLIF(tags->'name:bg', '') AS "name:bg", NULLIF(tags->'name:br',
       '') AS "name:br", NULLIF(tags->'name:bs', '') AS "name:bs", NULLIF(tags->'name:ca',
@@ -531,4 +531,3 @@ maxzoom: 14
 minzoom: 0
 name: OpenMapTiles
 pixel_scale: 256
-
