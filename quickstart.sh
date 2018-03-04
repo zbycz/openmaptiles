@@ -3,7 +3,7 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-# no/yes  + docker-compose setup
+# no/yes  + pripadne zakomentovat docker-compose.yml
 importall=yes
 
 ###########################################
@@ -183,6 +183,9 @@ echo "tags: {load_all: true}" > build/mapping.yaml
 cat mapping.yaml >> build/mapping.yaml
 rm mapping.yaml
 
+mv build/openmaptiles.tm2source/data.yml build/openmaptiles.tm2source/data.yml.bak
+cp data-with-tags+osm_id.yml build/openmaptiles.tm2source/data.yml
+
 
 echo " "
 echo "-------------------------------------------------------------------------------------"
@@ -278,13 +281,13 @@ echo "      :  "
 echo "      : You will see a lot of deprecated warning in the log! This is normal!  "
 echo "      :    like :  Mapnik LOG>  ... is deprecated and will be removed in Mapnik 4.x ... "
 
-docker-compose -f docker-compose.yml run --rm generate-vectortiles
+echo //docker-compose -f docker-compose.yml run --rm generate-vectortiles
 
 echo " "
 echo "-------------------------------------------------------------------------------------"
 echo "====> : Add special metadata to mbtiles! "
-docker-compose run --rm openmaptiles-tools  generate-metadata ./data/tiles.mbtiles
-docker-compose run --rm openmaptiles-tools  chmod 666         ./data/tiles.mbtiles
+echo //docker-compose run --rm openmaptiles-tools  generate-metadata ./data/tiles.mbtiles
+echo //docker-compose run --rm openmaptiles-tools  chmod 666         ./data/tiles.mbtiles
 
 echo " "
 echo "-------------------------------------------------------------------------------------"
