@@ -178,6 +178,12 @@ echo "      : The tool source code: https://github.com/openmaptiles/openmaptiles
 echo "      : But we generate the tm2source, Imposm mappings and SQL functions from the layer definitions! "
 docker-compose run --rm openmaptiles-tools make
 
+mv build/mapping.yaml .
+echo "tags: {load_all: true}" > build/mapping.yaml
+cat mapping.yaml >> build/mapping.yaml
+rm mapping.yaml
+
+
 echo " "
 echo "-------------------------------------------------------------------------------------"
 echo "====> : Start PostgreSQL service ; create PostgreSQL data volume "
@@ -232,11 +238,6 @@ echo "      :   Thank you Omniscale! "
 echo "      :   Source code: https://github.com/openmaptiles/import-osm "
 echo "      : The OpenstreetMap data license: https://www.openstreetmap.org/copyright (ODBL) "
 echo "      : Thank you OpenStreetMap Contributors ! "
-
-mv build/mapping.yaml .
-echo "tags:\n  load_all: true" > build/mapping.yaml
-cat mapping.yaml >> build/mapping.yaml
-rm mapping.yaml
 
 docker-compose run --rm import-osm
 
